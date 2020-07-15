@@ -1,0 +1,417 @@
+$bgColor: #00b074;
+.flexPage{
+    display:flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin: 50px auto;
+    width: 75%;
+    direction: rtl;
+}
+
+.listAndTask{
+    flex-direction: row;
+    display: flex;
+}
+
+.space-between { 
+    margin-top: 25px;
+    flex-direction: row;
+    display: flex;
+    justify-content: space-between; 
+    align-items: center;
+    width:100%;
+    :last-child {
+        margin-bottom: 15px;
+      }
+  }  
+
+  .buttonTask {
+      display: flex;
+      justify-content:center;
+      height:45px;
+      background-color:$bgColor;
+      text-align: center;
+      border-radius: 3px;
+      a{
+          color:white;
+          margin:10px 30px;
+      }
+      box-shadow: 0 0 12px rgba(0,0,0, .2);
+      cursor: pointer;
+  }
+
+.search{
+    width: 100%;
+    border: 1px solid gray; 
+    box-sizing: border-box;
+    align-items: center;
+    justify-content: center;
+}
+
+input{
+    outline: none;
+    border: none;
+    width: 97%;
+    height: 45px;
+    box-sizing: border-box;
+    font-size: 14px;
+}
+
+.navBar{
+    display:flex;
+    flex-direction: column;
+    justify-content:center;
+    align-items:center;
+    width:100%;
+    padding:0;
+    background-color: rgba(255,255,255,0.6);
+    z-index: 9999;
+    font-size: 13px;
+    color:gray;
+    font-weight: bold;
+    font-family: monospace, arial, sans-serif;
+    box-shadow: 0 0 12px rgba(0,0,0, .2);
+    
+}
+
+i{
+    color: gray;
+    font-size: 20px;
+    margin: 3px;
+}
+
+.site-nav {
+    width: 100%;     
+}
+
+.site-nav ul {
+	margin: 0;
+    padding: 0;
+    
+}
+.clr{
+    clear:both;
+    font-size:0;
+}
+
+.site-nav li {
+    list-style: none;
+    margin-right: 2px;
+}
+
+.rightLi li{
+    float: right; 
+}
+.leftLi li{
+    float: left; 
+}
+
+.rightUl{
+    float: right;
+    width: 70%;
+}
+
+.leftUl{
+    float: left;
+    width: 30%;
+
+}
+
+.site-nav a {
+	display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    padding: 2px 2px;
+    height: 60px;
+    width: 115px;
+    box-sizing: border-box;
+}
+
+
+.site-nav a:hover {
+    cursor: pointer;  
+}
+
+.group {
+	zoom: 1;
+}
+
+.dropdown{
+    position: relative;
+    z-index: 9999;
+}
+
+
+.biga{
+    width: 150px;
+    height: 60px;
+    display: flex;
+    justify-content: center;
+     align-items: center;
+    a{
+        height:30px;
+        width:100%;
+        border-radius:6px;
+        padding:0;
+        color: black;
+        box-sizing: border-box;
+    } 
+
+    a:hover {
+        background-color: $bgColor;
+       
+        cursor: pointer;  
+        transition: all .2s ease-out;
+    }
+    
+    div {
+        border: 1px solid gray;  
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-decoration: none;
+        padding: 2px 2px;
+        height: 35px;
+        width: 100px; 
+        border-radius:3px; 
+        box-sizing: border-box;
+    }
+}
+
+.icon{
+    width: 25px;
+    height: 60px;
+    display: flex;
+    justify-content: center;
+     align-items: center;
+}
+
+
+.dropdown-content{
+    position: absolute;
+    top: 60px;
+    right: 0;
+    background-color: #f1f1f1;
+    display: none;
+    text-align: right;
+    z-index: 9999;
+    box-shadow: 6px 6px 12px 0 rgba(0, 0, 0, 0.4);
+    a {
+        color: black;
+        text-decoration: none;
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        min-width: 240px;
+        height: 45px;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+        padding: 0 10px;
+
+      }
+
+      
+}
+
+  .dropdown:hover .dropdown-content {display: block;
+    transition: all .2s ease-out;
+        a{
+            color: gray;
+        }
+    }
+
+  .dropdown-content a:hover{
+    background-color:rgba(214, 118, 27, 0.6);
+    transition: all .9s ease-out;
+    
+    
+  }
+
+  .small{
+      display:none;
+  }
+
+  .arrow {
+    border: solid gray;
+    border-width: 0 2px 2px 0;
+    display: inline-block;
+    padding: 3px;
+    margin-right: 5px;
+  }
+  .down {
+    transform: rotate(45deg);
+    -webkit-transform: rotate(45deg);
+  }
+
+
+
+table,  td {
+    height: 50px;
+    border-bottom: 1px solid #efefef;
+    
+  }
+
+  .trHover, tr{
+    &:hover {
+        background-color:#eaf9f3;
+        cursor: pointer;
+    }
+  }
+  table,  th {
+    height: 30px;
+    input{
+        vertical-align:middle;
+      width:15px;
+  }
+  }
+
+  
+
+  .divTable{
+      width:100%;
+  }
+
+  .operationDiv{
+      display:flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      justify-content:space-between;
+      align-items:center;
+      padding: 0 20px;
+      box-sizing: border-box;
+
+  }
+
+  .operationsDiv{
+    display:flex;
+    flex-direction: column;
+    justify-content:center;
+      align-items:center;
+  }
+
+  .mission{
+        box-sizing: border-box;
+      display:flex;
+      flex-direction: column;
+      justify-content:flex-start;
+      align-items:center;
+      width:100%;
+      box-shadow: 0 0 12px rgba(0,0,0, .2);
+      padding: 25px 15px;
+        margin: 10px 0;
+      a{
+          width: 15%;
+          text-align: right;
+          float: right;
+         
+      }
+
+      input{
+          width: 80%;
+          outline: none;
+          border:1px solid gray;
+          
+      }
+
+      input[type=checkbox]{
+        width: 20px;
+        float: right;
+        margin: 0;
+        margin-right: 25px;
+        height: 20px;
+        outline: none;
+        border:1px solid gray;
+        
+    }
+
+  }
+
+  .btnForNewEdit{
+    height:45px;
+    text-align: center;
+    border-radius: 3px;
+    width: 15%;
+    font-weight: bold;
+        color:white;
+        margin:20px 30px;
+
+    box-shadow: 0 0 12px rgba(0,0,0, .2);
+    cursor: pointer;
+  }
+
+  .btnSave{
+    background-color:$bgColor;
+  }
+
+  .btnCancel{
+    background-color:red;
+  }
+
+  .mainDivButtonsAddEdit{
+      margin-bottom: 10px;
+      width: 100%;
+      display:flex;
+      flex-direction: row;
+      justify-content:center;
+      align-items: center;
+  }
+  
+
+  
+  @media screen and (max-width: 1220px ) {
+	
+	.small{
+        display:block;
+         width: 30px;
+         a{
+            width: 25px;
+         }
+    }
+    .bigR{
+        display:none;
+    }
+    .leftUl{
+        width:50%;
+    }
+	.rightUl{
+        width:50%;
+    }
+}
+
+@media screen and (max-width: 1000px ) {
+	
+	.operationDiv{
+       flex-direction: column; 
+       justify-content:center;
+       align-items:center;
+    }
+
+    table,  td{
+        height:150px;
+    }
+}
+
+
+@media screen and (max-width: 768px ) {
+    
+    .mainDivButtonsAddEdit{
+        flex-direction: column;
+        
+    }
+    
+}
+
+
+@media screen and (max-width: 600px ) {
+	
+	.phone{
+        display:none;
+    }
+}
+
+table{
+    width:100%;
+    text-align:right;
+    border-collapse: collapse;
+    border: 1px solid #ddd;
+}

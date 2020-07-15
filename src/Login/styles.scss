@@ -1,0 +1,23 @@
+.page{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.login{
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid gray;
+    padding: 50px;
+    box-shadow: 0 0 12px rgba(0,0,0, .2);
+    margin-top: 90px;
+
+}
+
+input{
+    border: 1px solid gray;
+    text-align: left;
+    height: 30px;
+}
