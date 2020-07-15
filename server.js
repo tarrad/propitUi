@@ -10,6 +10,7 @@ const createTask = require('./db/createTask')
 const updateTask = require('./db/updateTask')
 const daleteTask = require('./db/deleteTask')
 const decode = require('./security/decodeToken')
+const path = require('path')
 const cors = require('cors');
 const app = express()
  
@@ -26,8 +27,13 @@ mysqlConnection.connect((err) => {
 })
 
 
-app.listen(3001)
+app.use(express.static(__dirname));
+app.use(express.static(path.join(__dirname, 'build')));
 
+app.listen(3001)
+app.get('/*', (req,res) =>{
+    res.sendFile(path.join(__dirname, 'build', 'index.html'))
+})
 app.post('/login', (req,res) => { 
     
     console.log(req.params)
