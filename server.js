@@ -29,7 +29,6 @@ mysqlConnection.connect((err) => {
 app.listen(3001)
 
 app.post('/login', (req,res) => { 
-    
     getUser(req.body,mysqlConnection).then((token) => {
         res.send(token)
     }).catch((err) =>{
