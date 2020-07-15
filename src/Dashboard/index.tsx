@@ -167,6 +167,13 @@ function Dashboard() {
         setUser(prevArray => [...prevArray, data])
         setStateOfNewMission(false)
         setErrorRequest(false)
+
+        setNewMissionDetails(prevState => ({
+          ...prevState,
+         ["description"]: '',
+         ["email"]: '',
+         ["phone"]: '',
+      }));
       }).catch(err => setErrorRequest(true));
   }
  
@@ -190,6 +197,14 @@ function Dashboard() {
         newArr[currentIndex].Email = editMissionDetails.email;
         newArr[currentIndex].Phone = editMissionDetails.phone;
         setUser(newArr)
+        setEditMissionDetails(prevState => ({
+          ...prevState,
+         ["description"]: '',
+         ["email"]: '',
+         ["phone"]: '',
+         ["completed"]: 0,
+         ["id"]: 0
+      }));
       })
       .catch(err => console.log(err));
   }

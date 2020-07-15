@@ -74,7 +74,7 @@ const Login  = () =>  {
 
       return (
       <div className="page">
-        <div className="login">
+        <div className="login" id="loginComponent">
         <div> <img style={{maxWidth:'250px'}} src={logo}/></div>
         <div style={{marginBottom: '10px'}}>Username<input onChange={e => {handleNameChange(e)}}/></div>
         <div style={{marginBottom: '10px'}}>Password<input type="password" onChange={e => {handlePasswordChange(e)}}/></div>
