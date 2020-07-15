@@ -7,7 +7,7 @@ const updateTask = ((username,params, mysqlConnection) => {
                 mysqlConnection.query(query, [params.completed, params.description,params.phone,params.email,params.id ], (err, results, fields) => {
                     if (err) {
                         console.log(err)
-                        reject(500)
+                        reject(404)
                     }
                     resolve(200)
                   });

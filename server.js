@@ -10,9 +10,8 @@ const createTask = require('./db/createTask')
 const updateTask = require('./db/updateTask')
 const daleteTask = require('./db/deleteTask')
 const decode = require('./security/decodeToken')
-const path = require('path')
-const cors = require('cors');
-const app = express()
+var cors = require('cors');
+var app = express()
  
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -27,16 +26,10 @@ mysqlConnection.connect((err) => {
 })
 
 
-app.use(express.static(__dirname));
-app.use(express.static(path.join(__dirname, 'build')));
-
 app.listen(3001)
-app.get('/*', (req,res) =>{
-    res.sendFile(path.join(__dirname, 'build', 'index.html'))
-})
+
 app.post('/login', (req,res) => { 
     
-    console.log(req.params)
     getUser(req.body,mysqlConnection).then((token) => {
         res.send(token)
     }).catch((err) =>{
@@ -46,7 +39,6 @@ app.post('/login', (req,res) => {
 
 
 app.post('/register', (req,res) => {
-    console.log(req.body.username)
     register(req.body,mysqlConnection).then((answer) => {
         res.send(answer)
     }).catch((err) =>{
@@ -58,7 +50,6 @@ app.post('/tasks', (req,res) => {
     decode(req.header('authorization').split(' ')[1]).then((decoded) => {
         return createTask(decoded.data,req.body,mysqlConnection)
     }).then((answer) => {
-        console.log(answer)
         res.send(answer)
     }).catch((err) =>{
         res.sendStatus(err)
@@ -67,15 +58,13 @@ app.post('/tasks', (req,res) => {
 
 
 app.get('/tasks', (req,res) => {
-    console.log(req.header('authorization'))
     decode(req.header('authorization').split(' ')[1]).then((decoded) => {
         return getUserDetails(decoded.data,mysqlConnection)
     }).then((user) => {
-        return getTasks(user[0].username,user[0].Admin,mysqlConnection)
+        return getTasks(user[0].Username,user[0].Admin,mysqlConnection)
     }).then((tasks) => {
         res.send(tasks)
     }).catch((err) =>{
-        console.log(err)
         if(err  === 401){
             res.send({error: 401})
         }
@@ -92,11 +81,9 @@ app.put('/tasks', (req,res) => {
     decode(req.header('authorization').split(' ')[1]).then((decoded) => {
         return updateTask(decoded.data,req.body,mysqlConnection)
     }).then((result) => {
-        console.log(result)
         res.send(result)
     }).catch((err) =>{
-        console.log(err)
-        res.sendStatus(500)
+        res.sendStatus(404)
     })
 })
 

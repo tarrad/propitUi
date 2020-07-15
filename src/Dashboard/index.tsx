@@ -2,7 +2,7 @@ import React, {useState, Component} from 'react';
 import './styles.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEnvelopeOpen } from '@fortawesome/free-regular-svg-icons';
-import { faBars, faCaretDown, faCaretLeft, faFire, faSearch, faEye, faUserEdit, faTrash,faCheck } from '@fortawesome/free-solid-svg-icons';
+import { faBars, faCaretDown, faCaretLeft, faFire, faSearch, faEye, faUserEdit, faTrash,faCheck,faSort, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 import {Link} from 'react-scroll'
 import { useHistory } from "react-router-dom";
 
@@ -12,8 +12,9 @@ const logo = require('../images/propit.png');
 
 
 function Dashboard() {
+  var regexMail = /\S+@\S+\.\S+/;
   const history = useHistory();
-  const [p, setUser] = React.useState([{
+  const [taskArray, setTestArray] = React.useState([{
     TaskID: 0,
     DescriptionOfTask: '',
     Email: '',
@@ -30,6 +31,7 @@ function Dashboard() {
   const [currentIndex, setCurrentIndex] = useState(-1);
   const [editMode, setEditMode] = useState(false);
   const [viewMode, setViewMode] = useState(false);
+  const [canSendRequest, setCanSend] = useState(false);
   const [newMissionDetails, setNewMissionDetails] = useState({
     description: '',
     email: '',
@@ -67,15 +69,11 @@ function Dashboard() {
           localStorage.removeItem('tokenP')
           history.push("/login");
         }
-        setUser(prevArray => [])
+        setTestArray(prevArray => [])
         data.map((item, k) => (
           item.Date = handleDate(item.Date.split('T')[0]),
-          setUser(prevArray => [...prevArray, item])
-          
-          
-
-
-
+          setTestArray(prevArray => [...prevArray, item]),
+          console.log(item)
         ))
        
       }).catch((err) => {
@@ -84,20 +82,18 @@ function Dashboard() {
   }, []); 
     
   const handleDate = (str) =>{
-    console.log(str + "fds")
+    
     const date = str.split("-");
-    console.log(date[2]+"."+date[1]+"."+date[0])
     return date[2]+"."+date[1]+"."+date[0];
   }
   const handleEditTaks = (k)=> {
-    console.log(p[k])
     setEditMissionDetails(prevState => ({
       ...prevState,
-     ["description"]: p[k].DescriptionOfTask,
-     ["email"]: p[k].Email,
-     ["phone"]: p[k].Phone,
-     ["completed"]: p[k].Completed,
-     ["id"]: p[k].TaskID
+     ["description"]: taskArray[k].DescriptionOfTask,
+     ["email"]: taskArray[k].Email,
+     ["phone"]: taskArray[k].Phone,
+     ["completed"]: taskArray[k].Completed,
+     ["id"]: taskArray[k].TaskID
   }));
   setCurrentIndex(k)
   setEditMode(true)
@@ -105,13 +101,13 @@ function Dashboard() {
   }
 
   const handleViewTaks = (k)=> {
-    console.log(p[k])
+    console.log(taskArray[k])
     setViewMissionDetails(prevState => ({
       ...prevState,
-     ["description"]: p[k].DescriptionOfTask,
-     ["email"]: p[k].Email,
-     ["phone"]: p[k].Phone,
-     ["completed"]: p[k].Completed,
+     ["description"]: taskArray[k].DescriptionOfTask,
+     ["email"]: taskArray[k].Email,
+     ["phone"]: taskArray[k].Phone,
+     ["completed"]: taskArray[k].Completed,
   }));
   setViewMode(true)
   
@@ -164,7 +160,7 @@ function Dashboard() {
       .then(results =>  results.json())
       .then(data => {
         data.Date = handleDate(data.Date.split('T')[0])
-        setUser(prevArray => [...prevArray, data])
+        setTestArray(prevArray => [...prevArray, data])
         setStateOfNewMission(false)
         setErrorRequest(false)
 
@@ -176,7 +172,29 @@ function Dashboard() {
       }));
       }).catch(err => setErrorRequest(true));
   }
- 
+  
+  const sortByUsername = (() => {
+    let newArr = [...taskArray];
+    newArr.sort((a,b) => (a.Username > b.Username) ? 1 : ((b.Username > a.Username) ? -1 : 0)); 
+    setTestArray(newArr)
+    console.log(newArr)
+  })
+
+  const sortByDate = (() => {
+    let newArr = [...taskArray];    
+    newArr.sort((o1,o2) => {
+      let date1 = new Date(o1.Date.replace(/\./g, '/'))
+      let date2 = new Date(o2.Date.replace(/\./g, '/'))
+      return date1 < date2 ? -1 : date1 > date2 ? 1 : 0;
+    });
+    setTestArray(newArr)
+
+  })
+
+  const signOut = () => {
+          localStorage.removeItem('tokenP')
+          history.push("/login");
+  }
   const updateTesk = async () => {
     
     fetch('http://localhost:3001/tasks/', {
@@ -191,12 +209,12 @@ function Dashboard() {
         setEditMode(false)
         setErrorRequest(false)
         console.log(currentIndex)
-        let newArr = [...p];
+        let newArr = [...taskArray];
         newArr[currentIndex].Completed = editMissionDetails.completed;
         newArr[currentIndex].DescriptionOfTask = editMissionDetails.description;
         newArr[currentIndex].Email = editMissionDetails.email;
         newArr[currentIndex].Phone = editMissionDetails.phone;
-        setUser(newArr)
+        setTestArray(newArr)
         setEditMissionDetails(prevState => ({
           ...prevState,
          ["description"]: '',
@@ -217,7 +235,7 @@ function Dashboard() {
     })
       .then(results => console.log(results))
       .then(data => {
-        setUser(p.filter(item => item.TaskID !== id)); 
+        setTestArray(taskArray.filter(item => item.TaskID !== id)); 
       });
   }
       
@@ -251,6 +269,7 @@ function Dashboard() {
               <ul className="leftUl leftLi group">
               
                 <li className="dropdown  biga"><div style={{border:'none'}}><img src={logo} style={{width:'100%', height:'100%'}}/></div></li>
+                <li className="dropdown  icon"><a onClick={signOut}><i><FontAwesomeIcon icon={faSignOutAlt} /></i></a></li>
                 <li className="dropdown  icon"><a><i><FontAwesomeIcon icon={faEnvelopeOpen} /></i></a></li>
                 <li className="dropdown  phone"><a>053-2796105</a></li>
                 
@@ -267,7 +286,7 @@ function Dashboard() {
               <div style={{display:'flex', justifyContent:'center', alignItems:'center'}}><input type="text" placeholder={"חיפוש משימה..."}></input> <a><i><FontAwesomeIcon style={{cursor:'pointer '}} icon={faSearch} /></i></a></div>
             </div>
             <div className="space-between">
-            <div ><a style={{fontWeight:'bold'}}>{p.length > 0 ? <a>רשימה ({p.length})</a> : ""}</a></div>
+            <div ><a style={{fontWeight:'bold'}}>{taskArray.length > 0 ? <a>רשימה ({taskArray.length})</a> : ""}</a></div>
              {!stateOfNewMission ? <div onClick={() => setStateOfNewMission(true)} className="buttonTask"><a >משימה חדשה</a></div> : ""}
             </div>
             <div id="newTaskDiv"></div>
@@ -364,14 +383,14 @@ function Dashboard() {
              <div className="divTable">
                <table>
                  <tr style={{backgroundColor:'#efefef'}}> 
-                   <th><input type='checkbox'/>שם משתמש</th>
-                   <th>טלפון</th>
-                   <th>מייל</th>
-                   <th>תאריך יצירת משימה</th>
-                   <th>פעולות</th>
+                   <th ><div style={{display: "flex", alignItems:"center", justifyContent:"flex-start"}}><input type='checkbox'/>שם משתמש <a onClick={() => sortByUsername()}><i ><FontAwesomeIcon icon={faSort} /></i></a></div></th>
+                   <th><div style={{display: "flex", alignItems:"center", justifyContent:"flex-start"}}>טלפון</div></th>
+                   <th><div style={{display: "flex", alignItems:"center", justifyContent:"flex-start"}}>מייל</div></th>
+                   <th><div style={{display: "flex", alignItems:"center", justifyContent:"flex-start"}}>תאריך יצירת המשימה<a onClick={() => sortByDate()}><i><FontAwesomeIcon icon={faSort} /></i></a></div></th>
+                   <th><div style={{display: "flex", alignItems:"center", justifyContent:"flex-start"}}>פעולות</div></th>
                 </tr>
 
-                {p.length > 0 && p.map((item, key) => {
+                {taskArray.length > 0 && taskArray.map((item, key) => {
         return (
             <tr className="trHover" key={key}>
                 <td><input type='checkbox'/>{item.Username}</td>

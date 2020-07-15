@@ -22,7 +22,7 @@ const register = ((params, mysqlConnection) => {
                 mysqlConnection.query(query, [params.username,hashedPassword,params.admin ], (err, results, fields) => {
                     if (err) {
                         console.log(err)
-                        reject(500)
+                        reject(404)
                     }
                     resolve(200)
                   });
@@ -30,7 +30,7 @@ const register = ((params, mysqlConnection) => {
             }
             else{
                 console.log(err)
-                reject(500);
+                reject(404);
             }
         })
 

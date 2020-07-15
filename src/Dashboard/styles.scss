@@ -6,6 +6,7 @@ $bgColor: #00b074;
     margin: 50px auto;
     width: 75%;
     direction: rtl;
+    min-width: 500px;
 }
 
 .listAndTask{
@@ -258,11 +259,18 @@ table,  td {
     }
   }
   table,  th {
-    height: 30px;
-    input{
-        vertical-align:middle;
-      width:15px;
+        height: 30px;
+        input{
+        width:15px;
+        vertical-align: middle;
+    }
   }
+
+  .flexTable{
+      display: flex;
+      flex-direction: row;
+      justify-content:center;
+      align-items:center;
   }
 
   

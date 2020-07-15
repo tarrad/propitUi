@@ -8,16 +8,14 @@ const createTask = ((username,params, mysqlConnection) => {
                 var datetime = new Date();
                 mysqlConnection.query(query, [datetime.toISOString().split('T')[0],params.description,params.email,params.phone,username ], (err, results, fields) => {
                     if (err) {
-                        console.log(err)
-                        reject(500)
+                        reject(404)
                     }
                     
                     query ="SELECT *  FROM tasks where TaskId = ?"
 
                     mysqlConnection.query(query, [results.insertId], (err, results, fields) => {
                         if (err) {
-                            console.log(err)
-                            reject(500)
+                            reject(404)
                         }
                         
                         resolve(results[0])

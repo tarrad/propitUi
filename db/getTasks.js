@@ -16,8 +16,8 @@ const getTasks = ((name, isAdmin, mysqlConnection) => {
             })
         }
         else{
-
-            mysqlConnection.query('SELECT * From tasks where username = ?',[name], (err, rows, fields) => {
+            console.log(name + " tsahc")
+            mysqlConnection.query('SELECT * From tasks where Username = ?',[name], (err, rows, fields) => {
                  if(!err){
                    resolve(rows)
                 }
