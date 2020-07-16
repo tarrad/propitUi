@@ -48,7 +48,7 @@ const Login  = () =>  {
           
 
 
-        axios.post('http://localhost:3001/register', {
+        axios.post('http://proptestheroku.herokuapp.com/register', {
             username: details.username,
             password: details.password
           })
@@ -80,7 +80,7 @@ const Login  = () =>  {
           
 
 
-        axios.post('http://localhost:3001/login', {
+        axios.post('http://proptestheroku.herokuapp.com/login', {
             username: details.username,
             password: details.password
           })

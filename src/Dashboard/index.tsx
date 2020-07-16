@@ -56,7 +56,7 @@ function Dashboard() {
 
    const [commercial, setCommercial] = useState(true);
    React.useEffect(() => {
-    fetch('http://localhost:3001/tasks', {
+    fetch('http://proptestheroku.herokuapp.com/tasks', {
       method: 'get',
       headers: new Headers({
         'Authorization': 'Bearer ' + localStorage.getItem('tokenP')
@@ -149,7 +149,7 @@ function Dashboard() {
       };
   const addNewTesk = async () => {
     
-    fetch('http://localhost:3001/tasks/', {
+    fetch('http://proptestheroku.herokuapp.com/tasks/', {
       method: 'post',
       headers: new Headers({
         'Authorization': 'Bearer ' +localStorage.getItem('tokenP'),
@@ -197,7 +197,7 @@ function Dashboard() {
   }
   const updateTesk = async () => {
     
-    fetch('http://localhost:3001/tasks/', {
+    fetch('http://proptestheroku.herokuapp.com/tasks/', {
       method: 'put',
       headers: new Headers({
         'Authorization': 'Bearer ' + localStorage.getItem('tokenP'),
@@ -227,7 +227,7 @@ function Dashboard() {
       .catch(err => console.log(err));
   }
   const removeTask = async (id) => {
-    fetch('http://localhost:3001/tasks/'+id, {
+    fetch('http://proptestheroku.herokuapp.com/tasks/'+id, {
       method: 'delete',
       headers: new Headers({
         'Authorization': 'Bearer ' +localStorage.getItem('tokenP') 
